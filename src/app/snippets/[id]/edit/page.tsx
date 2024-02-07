@@ -8,20 +8,23 @@ interface SnippetParams {
   }
 }
 
-const SnippetEditPage = async(props: SnippetParams) => {
+const SnippetEditPage = async (props: SnippetParams) => {
   const id = parseInt(props.params.id);
 
   const snippet = await db.snippet.findFirst({
-  where:{id}
-})
+    where: { id }
+  })
 
-  if (!snippet) { 
+  if (!snippet) {
 
     notFound()
   }
 
+
+
+
   return (
-    <SnippetEditFormPage snippet={snippet} />
+    <SnippetEditFormPage  snippet={snippet} />
   )
 }
 

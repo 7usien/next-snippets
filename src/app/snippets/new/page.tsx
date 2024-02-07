@@ -25,7 +25,6 @@ const SnippetPage = () => {
    }
   })
   //* redirect to the home page
-console.log(snippet)
   redirect('/')
 
   
@@ -73,7 +72,7 @@ console.log(snippet)
        />
      </div>
 
-     <button type="submit" className="rounded p-2 bg-blue-200">
+     <button type="submit" className="rounded p-4 bg-teal-600 text-white min-w-36 m-auto">
        Create
      </button>
    </div>

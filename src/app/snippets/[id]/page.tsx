@@ -10,7 +10,7 @@ interface SnippetShowParams {
 
 const ShowSnippetpage = async (props: SnippetShowParams) => {
 
-  await new Promise((r) => setTimeout(r, 1000))
+  await new Promise((r) => setTimeout(r, 400))
 
   const snippet = await db.snippet.findFirst({
     where: {

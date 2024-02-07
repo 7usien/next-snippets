@@ -9,7 +9,11 @@ export default async function Home() {
     lang: string;
   }
 
-  const snippetData = await db.snippet.findMany();
+  const snippetData = await db.snippet.findMany({
+    orderBy: {
+      id:'desc'
+    }
+  });
 
   const renderSnippets = snippetData?.map((item: SnippetData) => {
     return (
