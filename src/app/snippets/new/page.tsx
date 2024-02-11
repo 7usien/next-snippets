@@ -1,42 +1,16 @@
-import { db } from '@/db'
-
-import { redirect } from 'next/navigation'
+'use client'
+import * as actions from '@/actions'
+import { useFormState } from 'react-dom'
 
 const SnippetPage = () => {
 
 
- const AddSnippet = async (formData: FormData) => {
-  
-  //*define a server action
-  'use server'
-  //*get user data and vcalid them
-
-  
-  const title = formData.get('title') as string;
-  const code = formData.get('code') as string;
-  const lang = formData.get('lang') as string;
-
-  //* save a record in the database
-
-  const snippet = await db.snippet.create({
-   data: {
-    title, 
-    code, lang
-   }
-  })
-  //* redirect to the home page
-  redirect('/')
-
-  
-  
-
-
- }
+ const [formState, action]=useFormState(actions.createSnippet, {message:""})
 
 
 
   return (
-   <form action={AddSnippet}>
+   <form action={action}>
    <h3 className="font-bold m-3 text-3xl text-center">Create a Snippet</h3>
    <div className="flex flex-col gap-8">
      <div className="flex gap-4">
