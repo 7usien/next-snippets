@@ -1,6 +1,8 @@
 import { db } from "@/db"
 import Link from "next/link"
 import { notFound } from "next/navigation"
+import { useTransition } from "react"
+import * as actions from '@/actions'
 
 interface SnippetShowParams {
   params: {
@@ -22,6 +24,9 @@ const ShowSnippetpage = async (props: SnippetShowParams) => {
     return notFound();
   }
 
+const deleteSnippet= actions.deleteSnippet.bind(null, snippet.id) 
+
+
   return (
     <div className="w-full m-auto">
      
@@ -35,9 +40,12 @@ const ShowSnippetpage = async (props: SnippetShowParams) => {
               Edit</Link>
 
           </button>
-          <button className="border border-indigo-600 p-2 rounded-md shadow-lg hover:bg-gray-100">
+          <form action={deleteSnippet}>
+          <button type="submit"   className="border border-indigo-600 p-2 rounded-md shadow-lg hover:bg-gray-100">
           🔴
             delete</button>
+
+          </form>
         </div>
 
       </div>

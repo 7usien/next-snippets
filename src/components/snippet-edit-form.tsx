@@ -1,7 +1,7 @@
 "use client";
 import { Editor } from "@monaco-editor/react";
 import type { Snippet } from "@prisma/client";
-import { useState } from "react";
+import { startTransition, useState } from "react";
 import * as actions from "@/actions";
 
 interface snippetType {
@@ -10,12 +10,16 @@ interface snippetType {
 
 const SnippetEditFormPage = ({ snippet }: snippetType) => {
  const [code, setCode] = useState(snippet.code);
+ const [title, setTitle] = useState(snippet.title);
 
  const EditorChangeHandler = (value: string) => {
   setCode(value);
  };
 
- 
+  const editSnippetAction = actions.editSnippet.bind(null, snippet.id, code,title);
+  
+
+
  return (
   <div>
    <div className="flex  gap-2 items-center mb-4">
@@ -33,6 +37,18 @@ const SnippetEditFormPage = ({ snippet }: snippetType) => {
     theme="vs-dark"
     options={{ minimap: { enabled: false }, fontSize: 22 }}
    />
+
+     <form action={editSnippetAction}>
+       <div className="flex my-3">
+       <label className="p-2" htmlFor="title">title</label>
+         <input onChange={(e) => {
+           setTitle(e.target.value);
+       }} type="text" value={title} contentEditable  className="w-full border p-2" name="title" id="title" />
+      </div>
+    <button type="submit" className="p-2 border rounded mt-4 w-24 bg-teal-700 text-white">
+     save
+    </button>
+   </form>
   </div>
  );
 };
