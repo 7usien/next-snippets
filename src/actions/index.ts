@@ -3,6 +3,7 @@
 import { db } from "@/db";
 import { redirect } from "next/navigation";
 
+
 export async function editSnippet(id: number, code: string, title) {
  await db.snippet.update({
   where: {
@@ -22,16 +23,30 @@ export async function deleteSnippet(id: number) {
  redirect("/");
 }
 
-export const createSnippet = async (formData: FormData, {message}:string) => {
- //*define a server action
+export const createSnippet = async (
+ formState: { message: string },
+ formData:FormData,
 
- //*get user data and vcalid them
+) => {
+ //  // //*get user data and vcalid them
 
- const title = formData.get("title") as string;
- const code = formData.get("code") as string;
- const lang = formData.get("lang") as string;
+ const title = formData.get('title');
+ const code = formData.get("code");
+ const lang = formData.get("lang");
 
- //* save a record in the database
+ if (typeof title !== 'string' || title.length < 3) {
+  return { message: "title should be longer than 3 char" };
+ }
+
+ if (typeof code !== 'string' || code.length < 10) {
+  return { message: "code should be longer than 10 char" };
+ }
+
+ if (typeof lang !== 'string' || lang.length < 2) {
+  return { message: "lang should be longer than 2 char" };
+ }
+
+ // //* save a record in the database
 
  const snippet = await db.snippet.create({
   data: {
